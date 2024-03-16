@@ -4,7 +4,7 @@ import numpy as np
 import streamlit as st
 from sklearn.preprocessing import StandardScaler
 
-loaded_model = pickle.load(open("trained_diabetic_model.sav", "rb"))
+loaded_model = pickle.load(open("diabetes_model.sav", "rb"))
 scaler = StandardScaler()
 
 
