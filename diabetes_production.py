@@ -2,21 +2,17 @@ import pickle
 
 import numpy as np
 import streamlit as st
-from sklearn.preprocessing import StandardScaler
-
-loaded_model = pickle.load(open("diabetes_model.sav", "rb"))
-scaler = StandardScaler()
 
 
 def diabetes_prediction(input_data):
-    input_data = (13, 145, 82, 19, 110, 22.2, 0.245, 57)
+
+    loaded_model = pickle.load(open("diabetes_model.sav", "rb"))
 
     # Change the input data to numpy array
     input_data = np.asarray(input_data)
 
     # Reshape the array for the model to understand since we're predicting for one instace
     input_data = input_data.reshape(1, -1)
-    input_data = scaler.fit_transform(input_data)
 
     prediction = loaded_model.predict(input_data)
 
@@ -32,15 +28,26 @@ def main():
     # Title
     st.title("Diabetes Prediction Web App")
 
+    # Columns
+    col1, col2, col3 = st.columns(3)
+
     # Feature Input from the user
-    Pregnancies = st.text_input("Number of pregnancies: ")
-    Glucose = st.text_input("Glucose Level: ")
-    BloodPressure = st.text_input("Blood Pressure value: ")
-    SkinThickness = st.text_input("Skin thickness: ")
-    Insulin = st.text_input("Insulin level: ")
-    BMI = st.text_input("BMI (Body mass) value: ")
-    DiabetesPedigreeFunction = st.text_input("Diabetes Pedigree function: ")
-    Age = st.text_input("Age of person: ")
+    with col1:
+        Pregnancies = st.text_input("Number of pregnancies: ")
+    with col2:
+        Glucose = st.text_input("Glucose Level: ")
+    with col3:
+        BloodPressure = st.text_input("Blood Pressure value: ")
+    with col1:
+        SkinThickness = st.text_input("Skin thickness: ")
+    with col2:
+        Insulin = st.text_input("Insulin level: ")
+    with col3:
+        BMI = st.text_input("BMI (Body mass) value: ")
+    with col1:
+        DiabetesPedigreeFunction = st.text_input("Diabetes Pedigree function: ")
+    with col2:
+        Age = st.text_input("Age of person: ")
 
     # Prediction
     diagnosis = ""
