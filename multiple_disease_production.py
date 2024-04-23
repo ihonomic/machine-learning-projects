@@ -38,6 +38,20 @@ def breastcancer_prediction(input_data):
         return "This values reads: Malignant"
 
 
+def parkinson_prediction(input_data):
+    input_data = np.asarray(input_data)
+    input_data = input_data.reshape(1, -1)
+
+    prediction = parkinson_model.predict(input_data)
+
+    # print(prediction)
+
+    if prediction[0] == 1:
+        return "This values reads: Positive to parkinson disease"
+    else:
+        return "This values reads: Negative to parkinson disease"
+
+
 # Sidebar for navigation
 with st.sidebar:
     selected = option_menu(
@@ -49,6 +63,7 @@ with st.sidebar:
 
 if selected == "Diabetes Prediction":
     st.title("Diabetes Prediction using ML")
+    st.text("Model Trained using Support vector Machine SVM")
 
     Pregnancies = st.text_input("Number of pregnancies: ")
     Glucose = st.text_input("Glucose Level: ")
@@ -80,6 +95,7 @@ if selected == "Diabetes Prediction":
 
 elif selected == "Breast Cancer Prediction":
     st.title("Breast Cancer Prediction using ML")
+    st.text("Model Trained using Logistic Regression")
 
     col1, col2, col3 = st.columns(3)
     with col1:
@@ -186,3 +202,86 @@ elif selected == "Breast Cancer Prediction":
 
 else:
     st.title("Parkinson Prediction using ML")
+    st.text("Model Trained using Support vector Machine SVM")
+
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        MDVP_Fo = st.text_input("MDVP_Fo(Hz)")
+    with col2:
+        MDVP_Fhi = st.text_input("MDVP_Fhi(Hz)")
+    with col3:
+        MDVP_Flo = st.text_input("MDVP_Flo(Hz)")
+    with col1:
+        MDVP_jitter = st.text_input("MDVP_Jitter(%)")
+    with col2:
+        MDVP_jitter_abs = st.text_input("MDVP_Jitter(Abs)")
+    with col3:
+        MDVP_rap = st.text_input("MDVP_RAP")
+    with col1:
+        MDVP_ppq = st.text_input("MDVP_PPQ")
+    with col2:
+        jitter_ddp = st.text_input("Jitter_DDP")
+    with col3:
+        MDVP_shimmer = st.text_input("MDVP_Shimmer")
+    with col1:
+        MDVP_shimmer_db = st.text_input("MDVP_Shimmer(dB)")
+    with col2:
+        shimmer_apq3 = st.text_input("Shimmer_APQ3")
+    with col3:
+        shimmer_apq5 = st.text_input("Shimmer_APQ5")
+    with col1:
+        MDVP_apq = st.text_input("MDVP_APQ")
+    with col2:
+        shimmer_dda = st.text_input("Shimmer_DDA")
+    with col3:
+        nhr = st.text_input("NHR")
+    with col1:
+        hnr = st.text_input("HNR")
+    # with col2:
+    #     status = st.text_input("status")  #
+    with col2:
+        rpde = st.text_input("RPDE")
+    with col3:
+        dfa = st.text_input("DFA")
+    with col1:
+        spread1 = st.text_input("spread1")
+    with col2:
+        spread2 = st.text_input("spread2")
+    with col3:
+        d2 = st.text_input("D2")
+    with col1:
+        ppe = st.text_input("PPE")
+
+    diagnosis = ""
+
+    # Button
+    if st.button("Parkinson Test Result"):
+        diagnosis = parkinson_prediction(
+            [
+                MDVP_Fo,
+                MDVP_Fhi,
+                MDVP_Flo,
+                MDVP_jitter,
+                MDVP_jitter_abs,
+                MDVP_rap,
+                MDVP_ppq,
+                jitter_ddp,
+                MDVP_shimmer,
+                MDVP_shimmer_db,
+                shimmer_apq3,
+                shimmer_apq5,
+                MDVP_apq,
+                shimmer_dda,
+                nhr,
+                hnr,
+                # status,
+                rpde,
+                dfa,
+                spread1,
+                spread2,
+                d2,
+                ppe,
+            ]
+        )
+
+    st.success(diagnosis)
