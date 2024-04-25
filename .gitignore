@@ -10,6 +10,8 @@ __pycache__/
 # C extensions
 *.so
 
+__datasets__/
+
 # Distribution / packaging
 .Python
 build/
